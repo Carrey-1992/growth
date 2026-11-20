@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+<channel>
+<title>成长学习站</title>
+<link>https://carrey-1992.github.io/growth/</link>
+<description>12 周架构师成长计划与 K8s 专项：当周学习页、专项模块与实验页更新。</description>
+<language>zh-CN</language>
+<lastBuildDate>Fri, 20 Nov 2026 10:04:29 +0800</lastBuildDate>
+<item>
+<title>第3周 · Prompt、Skill 与 RAG 入门</title>
+<link>https://carrey-1992.github.io/growth/week-03.html</link>
+<guid isPermaLink="true">https://carrey-1992.github.io/growth/week-03.html</guid>
+<pubDate>Mon, 23 Nov 2026 08:00:00 +0800</pubDate>
+<description>Prompt 结构化写法；Skill/规则沉淀团队知识；RAG 流程（切分/向量/召回/重排）；RAG 常见失败模式；回忆题</description>
+</item>
+<item>
+<title>第2周 · MCP 协议</title>
+<link>https://carrey-1992.github.io/growth/week-02.html</link>
+<guid isPermaLink="true">https://carrey-1992.github.io/growth/week-02.html</guid>
+<pubDate>Mon, 16 Nov 2026 08:00:00 +0800</pubDate>
+<description>MCP 架构（Host/Client/Server）；Tools/Resources/Prompts 三类能力；传输方式 stdio 与 Streamable HTTP；读 MCP Java SDK 示例；回忆题</description>
+</item>
+<item>
+<title>专项 · CI/CD · GitLab CI + Argo CD</title>
+<link>https://carrey-1992.github.io/growth/k8s-ci.html</link>
+<guid isPermaLink="true">https://carrey-1992.github.io/growth/k8s-ci.html</guid>
+<pubDate>Sun, 15 Nov 2026 08:00:00 +0800</pubDate>
+<description>GitLab CE + Runner + 本地仓库，三阶段流水线部署到 kind，下一步 GitOps</description>
+</item>
+<item>
+<title>专项 · 实验环境 · kind 集群 learn</title>
+<link>https://carrey-1992.github.io/growth/k8s-lab.html</link>
+<guid isPermaLink="true">https://carrey-1992.github.io/growth/k8s-lab.html</guid>
+<pubDate>Thu, 12 Nov 2026 08:00:00 +0800</pubDate>
+<description>家里 Ubuntu 上的 kind 集群：应用、Ingress、HPA、监控与 6 个深挖点</description>
+</item>
+<item>
+<title>第1周 · AI 编码代理原理</title>
+<link>https://carrey-1992.github.io/growth/week-01.html</link>
+<guid isPermaLink="true">https://carrey-1992.github.io/growth/week-01.html</guid>
+<pubDate>Mon, 09 Nov 2026 08:00:00 +0800</pubDate>
+<description>Agent 循环（上下文/工具调用/权限）；读 Anthropic《Building effective agents》；Claude Code/Cursor 规则文件与项目约定；上下文窗口与成本；回忆题 5 道</description>
+</item>
+<item>
+<title>专项 · 模块1 · K8s 核心与 API 交互</title>
+<link>https://carrey-1992.github.io/growth/k8s-01.html</link>
+<guid isPermaLink="true">https://carrey-1992.github.io/growth/k8s-01.html</guid>
+<pubDate>Wed, 04 Nov 2026 08:00:00 +0800</pubDate>
+<description>能不看资料讲清：一个 Pod 从 kubectl apply 到跑起来经过哪些组件；为什么 K8s 是“声明式 + 调谐</description>
+</item>
+<item>
+<title>专项 · 模块2 · kube-scheduler 调度器</title>
+<link>https://carrey-1992.github.io/growth/k8s-02.html</link>
+<guid isPermaLink="true">https://carrey-1992.github.io/growth/k8s-02.html</guid>
+<pubDate>Wed, 04 Nov 2026 08:00:00 +0800</pubDate>
+<description>能讲清 kube-scheduler 的“过滤 → 打分 → 绑定”；知道 requests 而不是实际用量决定能否调度</description>
+</item>
+<item>
+<title>专项 · 模块3 · 多租户与配额</title>
+<link>https://carrey-1992.github.io/growth/k8s-03.html</link>
+<guid isPermaLink="true">https://carrey-1992.github.io/growth/k8s-03.html</guid>
+<pubDate>Wed, 04 Nov 2026 08:00:00 +0800</pubDate>
+<description>能讲清 Namespace、ResourceQuota、LimitRange、RBAC 各管什么、怎么配合；能触发并读懂</description>
+</item>
+<item>
+<title>专项 · 模块4 · 批任务与异构资源</title>
+<link>https://carrey-1992.github.io/growth/k8s-04.html</link>
+<guid isPermaLink="true">https://carrey-1992.github.io/growth/k8s-04.html</guid>
+<pubDate>Wed, 04 Nov 2026 08:00:00 +0800</pubDate>
+<description>能讲清 Job/CronJob 语义；设备插件如何把 GPU 变成 nvidia.com/gpu 这类可调度扩展资源及其</description>
+</item>
+</channel>
+</rss>
