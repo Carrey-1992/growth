@@ -107,7 +107,13 @@ a.curcard.aicard{display:block;background:linear-gradient(135deg,#7c3aed,#2563eb
 a.curcard.aicard:hover{text-decoration:none;filter:brightness(1.05)}
 a.curcard.aicard .cc-row span.cc-go{background:#fff;color:#5b21b6}
 a.curcard.aicard p,a.curcard.spcard p{margin:0 0 12px;color:#fff;opacity:.95}
-.curcard.mapcard{margin-bottom:20px}
+details.mapfold{margin:8px 0 18px;border:1px solid var(--line);border-radius:14px;background:var(--panel)}
+details.mapfold>summary{align-items:flex-start;gap:8px;padding:14px 16px;min-height:44px}
+details.mapfold>summary .sumtxt{flex:1;min-width:0}
+details.mapfold>summary b{display:block;font-size:16px}
+details.mapfold>summary .hint{display:block;font-weight:400;color:var(--muted);font-size:13px}
+details.mapfold[open]>summary{border-bottom:1px solid var(--line)}
+details.mapfold .mapbody{padding:4px 16px 16px}
 .wk.path{font-weight:800}
 .card details.know{margin:0}
 .card details.know>summary{align-items:flex-start;gap:8px;padding:2px 0 8px;min-height:44px}

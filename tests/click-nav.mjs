@@ -58,6 +58,40 @@ async function run(width, height, label) {
   page.on('pageerror', e => errors.push(String(e)));
   page.on('console', msg => { if (msg.type() === 'error') errors.push(msg.text()); });
   await page.setViewport({ width, height, isMobile: width < 500, hasTouch: width < 500 });
+  await page.goto(`http://127.0.0.1:${port}/index.html`, { waitUntil: 'networkidle0' });
+  await page.evaluate(() => localStorage.removeItem('gs_drawer'));
+  await page.reload({ waitUntil: 'networkidle0' });
+  const home = await page.evaluate(() => {
+    const vh = window.innerHeight;
+    const cards = [...document.querySelectorAll('main a.curcard')].map(a => {
+      const r = a.getBoundingClientRect();
+      return { href: a.getAttribute('href'), top: Math.round(r.top), bottom: Math.round(r.bottom), inView: r.top < vh && r.bottom > 40 && r.height > 40 };
+    });
+    const week = document.querySelector('#map a[href="week-02.html"]');
+    const mainText = document.querySelector('main').innerText;
+    return {
+      cards,
+      mapOpen: document.querySelector('#map').open,
+      weekShown: week.checkVisibility(),
+      now: document.querySelectorAll('.wk.now').length,
+      pushed: ['打开地图上的这一周', '待办未完成', '本周 ·'].filter(s => mainText.includes(s)),
+    };
+  });
+  const inView = home.cards.filter(c => c.inView).map(c => c.href);
+  if (inView.join(',') !== 'k8s-path.html,ai.html') failures.push(label + ' routes ' + JSON.stringify(home));
+  if (home.mapOpen || home.weekShown || home.now || home.pushed.length) failures.push(label + ' map leak ' + JSON.stringify(home));
+  if (label === 'mobile') await page.screenshot({ path: '/opt/cursor/artifacts/home-two-entries-mobile.png' });
+  if (label === 'desktop') await page.screenshot({ path: '/opt/cursor/artifacts/home-two-entries-desktop.png' });
+  await page.click('#map > summary');
+  await page.waitForSelector('#map[open] a[href="week-02.html"]');
+  const weekBox = await page.$eval('#map a[href="week-02.html"]', el => el.getBoundingClientRect().height);
+  if (weekBox < 20) failures.push(label + ' map did not reveal weeks');
+  if (label === 'mobile') await page.screenshot({ path: '/opt/cursor/artifacts/home-map-open-mobile.png' });
+  await Promise.all([
+    page.waitForNavigation({ waitUntil: 'domcontentloaded' }),
+    page.click('#map a[href="week-02.html"]'),
+  ]);
+  if (!page.url().includes('week-02.html')) failures.push(label + ' week link ' + page.url());
   await page.goto(`http://127.0.0.1:${port}/ai.html`, { waitUntil: 'networkidle0' });
   await page.evaluate(() => localStorage.clear());
   const first = await page.$('main a.card');
@@ -122,6 +156,14 @@ async function run(width, height, label) {
     const len = await page.$eval('#' + id + ' .kbody', el => el.innerText.trim().length);
     if (len < 30) failures.push(label + ' week1 ' + id + ' short');
   }
+  await page.goto(`http://127.0.0.1:${port}/index.html#fav`, { waitUntil: 'networkidle0' });
+  const saved = await page.evaluate(() => ({
+    fav: document.querySelector('#favs')?.innerText || '',
+    done: '',
+  }));
+  await page.goto(`http://127.0.0.1:${port}/index.html#done`, { waitUntil: 'networkidle0' });
+  const doneText = await page.$eval('#dones', el => el.innerText);
+  if (!saved.fav.includes('Agent') || !doneText.includes('Agent')) failures.push(label + ' saved state fav=' + saved.fav.slice(0, 80) + ' done=' + doneText.slice(0, 80));
   await page.close();
 }
 
