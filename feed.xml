@@ -5,12 +5,19 @@
 <link>https://carrey-1992.github.io/growth/</link>
 <description>12 周架构师成长计划与 K8s 专项：当周学习页、专项模块与实验页更新。</description>
 <language>zh-CN</language>
-<lastBuildDate>Fri, 20 Nov 2026 10:04:29 +0800</lastBuildDate>
+<lastBuildDate>Sat, 21 Nov 2026 18:00:00 +0800</lastBuildDate>
+<item>
+<title>近期路线 · K8s 命令与排障</title>
+<link>https://carrey-1992.github.io/growth/k8s-path.html</link>
+<guid isPermaLink="true">https://carrey-1992.github.io/growth/k8s-path.html</guid>
+<pubDate>Sat, 21 Nov 2026 18:00:00 +0800</pubDate>
+<description>约 13 小时的命令与排障顺序：上下文与证据、四类故障、生命周期与 Service、Java 只读、Job、命名空间内 RBAC 与配额。不按日历催进度。</description>
+</item>
 <item>
 <title>第3周 · Prompt、Skill 与 RAG 入门</title>
 <link>https://carrey-1992.github.io/growth/week-03.html</link>
 <guid isPermaLink="true">https://carrey-1992.github.io/growth/week-03.html</guid>
-<pubDate>Mon, 23 Nov 2026 08:00:00 +0800</pubDate>
+<pubDate>Fri, 20 Nov 2026 10:04:29 +0800</pubDate>
 <description>Prompt 结构化写法；Skill/规则沉淀团队知识；RAG 流程（切分/向量/召回/重排）；RAG 常见失败模式；回忆题</description>
 </item>
 <item>

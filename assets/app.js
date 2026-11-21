@@ -21,7 +21,7 @@ function paint(){
 document.body.addEventListener('click',e=>{
  const c=e.target.closest('.chip');if(c){const t=c.dataset.t;$$('.chip').forEach(x=>x.classList.toggle('on',x===c));
   $$('.secblk').forEach(b=>{let n=0;b.querySelectorAll('.card').forEach(cd=>{const ok=!t||(t[0]==='s'?b.dataset.sec===t.slice(2):(cd.dataset.tags||'').split('|').includes(t.slice(2)));cd.style.display=ok?'':'none';n+=ok});b.style.display=n?'':'none'});return}
- const b=e.target.closest('.rd,.fv');if(!b)return;const cd=b.closest('.card'),id=cd.dataset.id;
+ const b=e.target.closest('.rd,.fv');if(!b)return;e.preventDefault();e.stopPropagation();const cd=b.closest('.card'),id=cd.dataset.id;
  if(b.classList.contains('rd')){read[id]?delete read[id]:read[id]={t:cd.dataset.title,u:cd.dataset.url,p:cd.dataset.page,d:cd.dataset.date,k:cd.dataset.kind};SV('gs_read',read)}
  else{if(fav[id])delete fav[id];else fav[id]={t:cd.dataset.title,u:cd.dataset.url,p:cd.dataset.page,d:cd.dataset.date,k:cd.dataset.kind};SV('gs_fav',fav)}
  paint();if(window.renderFav)renderFav()});
@@ -58,6 +58,8 @@ if(window.SEARCH){const M=$('#main'),home=M.innerHTML;
  upd();document.body.addEventListener('click',()=>setTimeout(upd,0));document.body.addEventListener('change',()=>setTimeout(upd,0));
  const hs=()=>{if(location.pathname.endsWith('/')||location.pathname.endsWith('index.html')){$$('.nbtn[data-nav]').forEach(a=>a.classList.toggle('on',a.dataset.nav===({'#fav':'fav','#done':'done'}[location.hash]||'home')))}};hs();addEventListener('hashchange',hs);
  $$('#side a').forEach(a=>a.addEventListener('click',()=>setMenu(false)));
+ const openHashed=()=>{const id=(location.hash||'').replace(/^#/,'');if(!id)return;const el=document.getElementById(id);if(!el)return;let n=el;while(n){if(n.matches&&n.matches('details.know'))n.open=true;n=n.parentElement}const d=el.querySelector&&el.querySelector('details.know');if(d)d.open=true};
+ openHashed();addEventListener('hashchange',openHashed);
 
  // 分类抽屉（手风琴），状态存 gs_drawer
  const cph='ph'+(N.weeks.length?[1,2,3].find(i=>{const d=document.querySelector(`.dw[data-dw="ph${i}"]`);return d&&d.dataset.ws.split(',').includes(String(cw))})||1:1);
