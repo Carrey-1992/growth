@@ -1,0 +1,334 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>近期路线 · K8s 命令与排障 · 成长学习站</title>
+<meta name="theme-color" content="#4f46e5">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="成长学习站">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon.png">
+<link rel="alternate" type="application/rss+xml" title="成长学习站" href="feed.xml">
+<link rel="stylesheet" href="assets/style.css">
+<style>.lec h3{margin-top:1.2em}.lec p,.lec li{line-height:1.75}.four .card h4{margin:0 0 6px}details.ans{margin:6px 0 12px}details.ans summary{cursor:pointer;opacity:.8}.todo{border-left:4px solid #e0a800;padding:8px 12px;margin:12px 0;background:rgba(224,168,0,.08)}table.t{border-collapse:collapse;width:100%}table.t td,table.t th{border:1px solid rgba(128,128,128,.3);padding:6px 8px;text-align:left;vertical-align:top}</style>
+<script>document.documentElement.dataset.theme=localStorage.getItem('bf_theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light')</script></head>
+<body data-root=""><header><div class="bar"><a class="logo" href="index.html">🌱 成长学习站</a>
+<div class="search"><input id="q" placeholder="搜索 12 周讲义（标题/主题）…" autocomplete="off"></div><a class="rssbtn" href="feed.xml" title="RSS 订阅">RSS</a><button class="btn" id="menu" aria-label="打开目录" aria-expanded="false">☰ 目录</button><button class="btn" id="theme" title="切换主题">🌓</button></div></header>
+<button type="button" class="scrim" id="scrim" hidden aria-label="关闭目录"></button>
+<div class="wrap"><aside id="side"><div class="dw" data-dw="todo"><button class="dwh" type="button" data-dw="todo"><i>☑</i><span>待办</span><b class="bdg" id="bdg-todo">0</b><em class="arr"></em></button><div class="dwb"><a class="nbtn" data-nav="todo" href="todo.html"><i>📋</i><span>练习待办</span><small class="sub">未完成 <b id="bdg-todo2">0</b></small></a><a class="wk tdl" data-td="grafana-home" href="todo.html#td-grafana-home"><span>Grafana 家里电脑练习</span><small class="frac">0/5</small></a><a class="wk tdl" data-td="k8s-lab" href="todo.html#td-k8s-lab"><span>K8s 专项实验（家里电脑）</span><small class="frac">0/5</small></a></div></div><div class="dw" data-dw="sp"><button class="dwh" type="button" data-dw="sp"><i>🎯</i><span>专项</span><b class="bdg" id="bdg-sp">0</b><em class="arr"></em></button><div class="dwb"><a class="nbtn" href="k8s.html"><i>☸</i><span>总览</span><b class="bdg" id="bdg-k8s">0/4</b></a><a class="wk path on" href="k8s-path.html"><span>★ 近期路线 · 命令与排障</span></a><a class="wk" href="k8s-lab.html"><span>🧪 实验环境 · learn 集群</span></a><a class="wk" href="k8s-ci.html"><span>🚀 CI/CD · GitLab CI + Argo CD</span></a><a class="wk km" data-km="k8s-01" href="k8s-01.html"><span>模块1 · 核心与 API</span><i class="ok">✓</i></a><a class="wk km" data-km="k8s-02" href="k8s-02.html"><span>模块2 · 调度器</span><i class="ok">✓</i></a><a class="wk km" data-km="k8s-03" href="k8s-03.html"><span>模块3 · 多租户与配额</span><i class="ok">✓</i></a><a class="wk km" data-km="k8s-04" href="k8s-04.html"><span>模块4 · 批任务与异构资源</span><i class="ok">✓</i></a></div></div><div class="dw" data-dw="learn"><button class="dwh" type="button" data-dw="learn"><i>📚</i><span>学习</span><b class="bdg" id="bdg-learn">0</b><em class="arr"></em></button><div class="dwb"><a class="nbtn" data-nav="home" href="index.html"><i>🏠</i><span>首页</span></a><a class="nbtn" href="ai.html"><i>✦</i><span>AI 自学</span></a><a class="nbtn" id="nav-cur" href="week-01.html"><i>📅</i><span>本周 · <em id="nav-curt">第1周</em></span></a><div class="dw sub" data-dw="ph1" data-ws="1,2,3,4"><button class="dwh dwh2" type="button" data-dw="ph1"><span>阶段一 · AI 研发效能<small>第1–4周</small></span><b class="bdg" data-phc="1">0/4</b><em class="arr"></em></button><div class="dwb"><a class="wk" data-wk="1" href="week-01.html"><span>第1周 · AI 编码代理原理</span><i class="ok">✓</i></a><a class="wk" data-wk="2" href="week-02.html"><span>第2周 · MCP 协议</span><i class="ok">✓</i></a><a class="wk" data-wk="3" href="week-03.html"><span>第3周 · Prompt、Skill 与 RAG 入门</span><i class="ok">✓</i></a><a class="wk" data-wk="4" href="week-04.html"><span>第4周 · AI 代码评审与质量门禁</span><i class="ok">✓</i></a></div></div><div class="dw sub" data-dw="ph2" data-ws="5,6,7,8"><button class="dwh dwh2" type="button" data-dw="ph2"><span>阶段二 · 分布式原理<small>第5–8周</small></span><b class="bdg" data-phc="2">0/4</b><em class="arr"></em></button><div class="dwb"><a class="wk" data-wk="5" href="week-05.html"><span>第5周 · 一致性模型与 CAP</span><i class="ok">✓</i></a><a class="wk" data-wk="6" href="week-06.html"><span>第6周 · Raft 共识</span><i class="ok">✓</i></a><a class="wk" data-wk="7" href="week-07.html"><span>第7周 · 分布式事务</span><i class="ok">✓</i></a><a class="wk" data-wk="8" href="week-08.html"><span>第8周 · 复制与分片</span><i class="ok">✓</i></a></div></div><div class="dw sub" data-dw="ph3" data-ws="9,10,11,12"><button class="dwh dwh2" type="button" data-dw="ph3"><span>阶段三 · 存储与高并发<small>第9–12周</small></span><b class="bdg" data-phc="3">0/4</b><em class="arr"></em></button><div class="dwb"><a class="wk" data-wk="9" href="week-09.html"><span>第9周 · MySQL 引擎与 MVCC</span><i class="ok">✓</i></a><a class="wk" data-wk="10" href="week-10.html"><span>第10周 · Redis 与缓存一致性</span><i class="ok">✓</i></a><a class="wk" data-wk="11" href="week-11.html"><span>第11周 · Kafka 设计 + 可观测性入门</span><i class="ok">✓</i></a><a class="wk" data-wk="12" href="week-12.html"><span>第12周 · 限流熔断降级 + 架构方法入门 + 总复盘</span><i class="ok">✓</i></a></div></div></div></div><div class="dw small" data-dw="fav"><button class="dwh" type="button" data-dw="fav"><i>⭐</i><span>收藏与完成</span><b class="bdg" id="bdg-fd">0</b><em class="arr"></em></button><div class="dwb"><a class="nbtn" data-nav="fav" href="index.html#fav"><i>★</i><span>我的收藏</span><b class="bdg" id="bdg-fav">0</b></a><a class="nbtn" data-nav="done" href="index.html#done"><i>✓</i><span>已完成</span><b class="bdg" id="bdg-done">0</b></a></div></div></aside><main id="main"><div class="tnav"><a class="tb" href="index.html">🏠 首页</a><a class="tb" href="k8s.html">四模块总览</a><a class="tb" href="ai.html">AI 自学</a><a class="tb" href="#s1">从第 1 节开始 →</a></div>
+<h1>近期路线：K8s 命令与排障</h1>
+<div class="meta">必修大约 13 小时。单次 30–60 分钟，一个周末若集中做四类故障，合计约 3–4 小时。不按日历推进，也不要求在入职前全部做完。</div>
+<div class="note">这是 K8s 入职准备里建议先走的一条线，页面不写雇主、部门技术栈或内网地址。AI 模块在 <a href="ai.html">另一页</a>，两条线都不必先做完另一条。你已经有 Docker/K8s 和学习集群，也做过一次 Pod 自动扩展的简单实验。本路线不重装环境，也不把自动扩展的全部机制算成已经掌握。Java 基础不重复。</div>
+<h3 class="sec">时间怎么用</h3>
+<div class="twrap"><table class="t"><tr><th>节</th><th>做什么</th><th>建议时长</th></tr>
+<tr><td>1</td><td>只读资料、确认上下文、健康基线、第一份镜像故障证据</td><td>90–110 分钟，可拆成两段</td></tr>
+<tr><td>2</td><td>进程崩溃：当前日志和 previous</td><td>50 分钟</td></tr>
+<tr><td>3</td><td>资源不够导致 Pending</td><td>50 分钟</td></tr>
+<tr><td>4</td><td>Service 不通，分层看标签、端口、EndpointSlice、就绪</td><td>60 分钟</td></tr>
+<tr><td>5</td><td>用已经见过的故障理解生命周期和 Deployment</td><td>50 分钟</td></tr>
+<tr><td>6</td><td>DNS、探针、配置</td><td>50 分钟</td></tr>
+<tr><td>7</td><td>request 与 limit，含文档里的 OOM 例子</td><td>50 分钟</td></tr>
+<tr><td>8</td><td>Java 客户端只读列出本实验命名空间</td><td>60 分钟</td></tr>
+<tr><td>9</td><td>Job</td><td>40 分钟</td></tr>
+<tr><td>10</td><td>命名空间内的 RBAC 和按节点容量设的配额</td><td>60 分钟</td></tr>
+<tr><td>11</td><td>状态同步：声明和实际为什么会不一致</td><td>40 分钟</td></tr>
+</table></div>
+<p>第 2–4 节加上第 1 节里已经做完的镜像故障，可以放在一个周末，合计大约 3–4 小时。若周末才开始，先做第 1 节和崩溃，Pending 与 Service 顺延，不要为了赶完去删 Pod。</p>
+<h3 class="sec">实验边界</h3>
+<ul>
+<li>只新建命名空间 <code>lab-troubleshoot</code>。清理只删除这个命名空间里本节创建的对象。确认里面没有别的东西之后，才可以删除这个命名空间本身。不要删除已有的其他命名空间。</li>
+<li>先看 <code>current-context</code>。家里学习集群 <code>learn</code> 的上下文通常是 <code>kind-learn</code>。对不上就停，不要换到别的集群继续。</li>
+<li>不改节点，不改系统 containerd 或 cgroup，不使用 sudo，不安装新集群，不申请 cluster-admin，不把宿主机内存打满。</li>
+<li>资源数字从你当时看到的 Allocatable 算出来。下面不写死超过学习节点的 CPU 或内存。</li>
+<li>本页命令没有在你的集群上运行。预期现象来自官方文档对状态和事件的说明，以及 2026-11-21 读到的页面。你的终端原文才是证据。</li>
+<li><a href="k8s-lab.html">实验环境页</a>记录过节点一度不能直接拉外网镜像（2026-11-12 的笔记，不是今天的测量）。若拉取失败，先读 Events 里的原因，再决定是 tag 不存在，还是仓库不可达。</li>
+</ul>
+<h2 id="s1">第 1 节 · 现在就能做</h2>
+<p>这一节不要先写 Job，也不要先开 Java 工程。产出是一份故障证据记录：健康对象长什么样，镜像拉不下来时日志和 Events 分别有什么。</p>
+<h3 class="sec">1. 只读这几页</h3>
+<p><span class="tag req">必读</span> <a href="https://kubernetes.io/zh-cn/docs/tasks/debug/debug-application/debug-pods/" target="_blank" rel="noopener">调试 Pod</a> 的“诊断问题”“调试 Pod”，以及下面三小节：Pod 停滞在 Pending、Pod 停滞在 Waiting、Pod 处于 Crashing。读的时候只回答：这三种情况分别先看什么，哪一种根本还没有应用日志。</p>
+<p><span class="tag req">必读</span> <a href="https://kubernetes.io/zh-cn/docs/reference/kubectl/quick-reference/" target="_blank" rel="noopener">kubectl 快速参考</a> 的“kubectl 上下文和配置”“查看和查找资源”“与运行中的 Pod 进行交互”。</p>
+<p><span class="tag opt">选读</span> <a href="https://kubernetes.io/zh-cn/docs/reference/kubectl/generated/kubectl_logs/" target="_blank" rel="noopener">kubectl logs</a> 选项表里的 <code>-p/--previous</code>、<code>-c/--container</code>、<code>--since</code>、<code>--since-time</code>、<code>--tail</code>、<code>--timestamps</code>、<code>-l/--selector</code>。这一节先认识它们，崩溃实验再用。</p>
+<p>阅读问题：Pending、镜像拉取失败、进程崩溃，是不是都该先看应用日志？先自己答，再展开。</p>
+<details class="ans"><summary>对照</summary><p>不是。调试 Pod 页把 Pending 归为还没调度到节点，Waiting 的常见原因之一是拉镜像失败，此时容器还没按应用的方式跑起来。进程已经启动又退出，才更有条件谈容器日志。所以三类故障不能都用 <code>kubectl logs</code> 开头。</p></details>
+<h3 class="sec">2. 最少命令：你在哪个集群、哪个命名空间</h3>
+<pre class="cmp">kubectl config current-context
+kubectl config get-contexts
+kubectl cluster-info
+kubectl get ns</pre>
+<p>上下文是 kubeconfig 里“当前在和哪个集群、哪个用户说话”。命名空间是名字的隔离范围。<code>-n</code> 只影响这一条命令；<code>kubectl config set-context --current --namespace=lab-troubleshoot</code> 会改当前上下文的默认命名空间。本路线每次都显式写 <code>-n lab-troubleshoot</code>，避免把默认命名空间改到别处后忘记改回来。</p>
+<p><b>验收：</b>笔记第一行写下 current-context 的原文。不是学习集群就停止。</p>
+<h3 class="sec">3. 健康基线</h3>
+<p>先看集群里已经在跑的镜像，避免假定某个公共 tag 一定拉得下来。</p>
+<pre class="cmp">kubectl get pods -A --field-selector=status.phase=Running -o jsonpath="{range .items[*]}{.metadata.namespace}{' '}{.metadata.name}{' '}{range .spec.containers[*]}{.image}{' '}{end}{'\n'}{end}"</pre>
+<p>从输出里选一个你确认属于学习用途、且对应 Pod 为 Running 的镜像，下面记作 <code>KNOWN_IMAGE</code>。不要把密钥或私有仓库地址抄进公开笔记。</p>
+<pre class="cmp">kubectl create namespace lab-troubleshoot
+kubectl -n lab-troubleshoot create deployment ok --image=KNOWN_IMAGE --replicas=1
+kubectl -n lab-troubleshoot get deploy,rs,pods -o wide
+kubectl -n lab-troubleshoot get pods -l app=ok
+kubectl -n lab-troubleshoot describe deploy ok
+kubectl -n lab-troubleshoot describe pod -l app=ok</pre>
+<p><code>create deployment</code> 会带上标签 <code>app=ok</code>。这是这条命令的约定，不是所有 Pod 都有这个标签。选择器 <code>-l app=ok</code> 只匹配带这个标签的对象。</p>
+<p>若这个镜像也拉不下来：不要改 containerd。记录 Events 原文。需要一个真能跑的基线时，用实验环境页里已有的做法，在主机上 <code>docker pull</code> 再 <code>kind load docker-image --name learn</code>，前提是上下文确实是这个 kind 集群。加载后仍失败，就停在证据记录，不要为了“变绿”去删系统 Pod。</p>
+<p>预期（未在你的集群验证）：调度成功时，describe 的 Events 里会出现调度和拉取相关记录，Pod 最终可以是 Running。容器只有一个时，logs 不需要 <code>-c</code>。若镜像没有持续输出，logs 为空也正常，把“命令成功但没有行”写进记录。</p>
+<p><b>验收：</b>记录里有 Pod 名、所在节点、镜像、Ready、重启次数。这四项缺一个，第 2 节先不要做。</p>
+<h3 class="sec">4. 第一份故障：镜像 tag 不存在</h3>
+<p>用一个肯定不存在的 tag，这样即使仓库可达也会失败。它和“仓库根本连不上”的事件原文不同。两种都先抄 Events，不要凭状态名猜。</p>
+<pre class="cmp">kubectl -n lab-troubleshoot create deployment pull-bad --image=nginx:this-tag-does-not-exist-lab --replicas=1
+kubectl -n lab-troubleshoot get pods -l app=pull-bad
+kubectl -n lab-troubleshoot describe pod -l app=pull-bad
+kubectl -n lab-troubleshoot logs -l app=pull-bad --tail=50 --timestamps</pre>
+<p>调试 Pod 页的“Pod 停滞在 Waiting”写了：Pod 已调度到节点，但还不能在节点上运行，最常见的原因之一是拉取镜像失败，要核对镜像名、镜像是否真的在仓库、本机能否拉取。官方描述的是原因类别，不是你这次的原文。</p>
+<p>这时应用日志通常还没有。 <code>logs</code> 失败或提示容器尚未启动，是符合这一阶段的，把命令的退出原文保存下来。不要为了得到日志去 <code>delete pod</code> 或重启节点。</p>
+<p>多容器时必须加 <code>-c 容器名</code>。这个错误示例只有一个容器，所以先不要加。容器名在 describe 的 Containers 下面。</p>
+<p><code>kubectl exec</code> 只在容器已经起来、并且你的身份允许时才有意义。镜像没拉下来时，exec 进不去。这不是权限系统坏了。</p>
+<div class="four">
+<div class="card"><h4>是什么</h4><p>ImagePullBackOff / ErrImagePull 表示 kubelet 在拉镜像，并且会按退避再试。对象已经有 Pod，但容器没有进入可以执行应用的状态。</p></div>
+<div class="card"><h4>为什么这样设计</h4><p>镜像身份错了就不应启动进程。事件记在 API 里，所以 describe 能看到，而不依赖应用自己打日志。</p></div>
+<div class="card"><h4>什么时候会出问题</h4><p>tag 写错、仓库不可达、私有仓库没有拉取凭据，表面都可以是 Waiting。凭据问题不要把 Secret 内容贴出来，只记事件里的原因类别。</p></div>
+<div class="card"><h4>怎么验证过</h4><p class="blank">留空。把你自己的 describe Events 和 logs 命令结果贴进笔记后再写结论。</p></div>
+</div>
+<h3 class="sec">5. 故障证据记录</h3>
+<p>复制到你自己的笔记。不要交回本站。</p>
+<pre class="cmp">时间（本机时区）：
+current-context：
+命名空间：lab-troubleshoot
+对象：deployment/pull-bad 与它的 Pod
+镜像：
+Pod phase / Ready / 重启次数：
+容器状态（Waiting 还是 Running 还是 Terminated）：
+Events 原文（含 Reason、时间、Message）：
+logs 命令和它的原文（包括失败）：
+下一步假设（tag 不存在，或仓库不可达）：
+还没做的事：没有删除 Pod，没有改节点</pre>
+<p><b>本节验收：</b>健康基线和 pull-bad 各有一份。pull-bad 的结论写的是“先看 Events，应用日志缺失是预期”，而不是“日志命令坏了”。</p>
+<h3 class="sec">恢复与清理（只动本节对象）</h3>
+<pre class="cmp">kubectl -n lab-troubleshoot delete deployment pull-bad ok
+kubectl get ns lab-troubleshoot</pre>
+<p>命名空间先留着，后面几节还用。只有整条路线做完、并且 <code>kubectl -n lab-troubleshoot get all</code> 里只剩你创建的残留时，才 <code>kubectl delete namespace lab-troubleshoot</code>。</p>
+
+<h2 id="s2">第 2 节 · 进程崩溃，看 current 和 previous</h2>
+<p>用已经证明能拉下来的 <code>KNOWN_IMAGE</code>。若这个镜像没有 shell，就不要写 <code>sh -c</code>。nginx 官方镜像可以用错误的配置参数让主进程退出，且仍然只有这一个镜像。</p>
+<pre class="cmp">kubectl -n lab-troubleshoot create deployment crash --image=KNOWN_IMAGE --replicas=1 -- nginx -c /no/such-lab.conf
+kubectl -n lab-troubleshoot get pods -l app=crash
+kubectl -n lab-troubleshoot describe pod -l app=crash
+kubectl -n lab-troubleshoot logs -l app=crash --tail=30 --timestamps
+kubectl -n lab-troubleshoot logs -l app=crash --previous --tail=30 --timestamps</pre>
+<p><code>--previous</code> 的官方说明是：打印容器前一个实例的日志，如果存在的话。第一次还没有退出过，这个参数会失败。等 describe 里出现重启或 Last State 之后再试。没有 previous 是结果，不是命令写错。它也不会把更早的第三份日志找回来。</p>
+<p>调试 Pod 页把“Crashing 或不健康”指向容器已经调度之后的进一步调试。describe 里看 State、Last State、Exit Code、Restart Count。不要一上来删掉 Pod，否则前一个实例的日志可能跟着没了。</p>
+<p>多容器练习（仍用 <code>KNOWN_IMAGE</code>，避免再拉一个新镜像）：</p>
+<pre class="cmp">kubectl -n lab-troubleshoot apply -f - &lt;&lt;'EOF'
+apiVersion: v1
+kind: Pod
+metadata:
+  name: two
+  labels:
+    app: two
+spec:
+  containers:
+  - name: web
+    image: KNOWN_IMAGE
+  - name: side
+    image: KNOWN_IMAGE
+    command: ["nginx", "-g", "daemon off;", "-c", "/no/such-lab.conf"]
+EOF
+kubectl -n lab-troubleshoot logs two -c side --tail=20 --timestamps
+kubectl -n lab-troubleshoot logs two --all-containers --prefix --tail=20</pre>
+<p>把文件里的 <code>KNOWN_IMAGE</code> 换成你的镜像。示例里的 <code>nginx -c</code> 只适用于带 nginx 命令的镜像。参数不被该镜像接受时，把 API 或事件原文记下来，删掉这个 Pod，不要改镜像入口去凑日志。<code>-c</code> 用来指定容器；不指定时，多容器 Pod 的 logs 需要你明确容器或使用 <code>--all-containers</code>。</p>
+<p><code>--since=5m</code> 只保留相对时间窗内的行，<code>--since-time</code> 用 RFC3339，二者只能用一个。<code>--tail</code> 限制行数。排障时先用短 tail 加时间戳，把事件时间和日志时间对齐，再放大窗口。Java 应用若日志里有请求 ID，用同一时间窗去对栈和下游配置；本练习的 nginx 没有请求 ID，不要编一个。</p>
+<p><b>验收：</b>笔记里有一次“还没有 previous”和一次“有 Last State 之后的 previous 或仍然没有”的原文，以及退出码。说不出退出码就还没看 describe。</p>
+<p>清理：<code>kubectl -n lab-troubleshoot delete deployment crash pod/two --ignore-not-found</code></p>
+<details class="ans"><summary>和镜像故障的差别</summary><p>镜像故障停在拉取，应用进程没开始，logs 常常没有内容。崩溃是进程起来过并退出，logs 和 Last State 才是主要证据。两者都可以叫 BackOff，但证据不在同一处。</p></details>
+
+<h2 id="s3">第 3 节 · Pending 与 FailedScheduling</h2>
+<p>request 是调度时预留的数量。节点的 Allocatable 不够，Pod 保持 Pending，调度器写 FailedScheduling。这个 Pod 不会在节点上运行，因此不会把宿主机内存吃光。不要改成“先调度上去再拼命分配”。</p>
+<pre class="cmp">kubectl get nodes -o custom-columns=NAME:.metadata.name,CPU:.status.allocatable.cpu,MEM:.status.allocatable.memory
+kubectl describe nodes</pre>
+<p>在 Allocatable 的 memory 上加一截，使请求大于每一个节点的可分配内存。例如你看到的是 <code>4000Mi</code> 左右，请求就写成比它更大的值，并且只放在 <code>requests</code>，不要同时写一个会让容器启动的巨大 <code>limits</code>。若你看不懂单位，停下来读资源页的“内存资源单位”，不要猜一个 100Gi。</p>
+<pre class="cmp">kubectl -n lab-troubleshoot apply -f - &lt;&lt;'EOF'
+apiVersion: v1
+kind: Pod
+metadata:
+  name: too-big
+spec:
+  containers:
+  - name: pause
+    image: KNOWN_IMAGE
+    resources:
+      requests:
+        memory: REPLACE_WITH_MORE_THAN_ALLOCATABLE
+EOF
+kubectl -n lab-troubleshoot get pod too-big
+kubectl -n lab-troubleshoot describe pod too-big</pre>
+<p>资源页“问题诊断”里的“我的 Pod 处于悬决状态且事件信息显示 FailedScheduling”给了一个文档示例：<code>0/42 nodes available: insufficient cpu</code>。那是文档里的例子，不是你的集群。你要抄的是自己 describe 里的 Events。内存不够时，同一节说消息会类似资源不足。节点名、数字以你的输出为准。</p>
+<p>Pending 时不要看应用日志，也不要 delete 再创建来“刷新”。事件已经说明它为什么没被调度。</p>
+<div class="four">
+<div class="card"><h4>是什么</h4><p>Pending 且 Events 为 FailedScheduling：调度器没有找到能满足请求的节点。</p></div>
+<div class="card"><h4>为什么这样设计</h4><p>用请求而不是瞬时用量做调度，是为了在启动前留出位置。实际用量低于请求时，别的 Pod 仍可能因请求总和被挡住。</p></div>
+<div class="card"><h4>什么时候会出问题</h4><p>请求大于所有节点的 Allocatable，或节点有你没有容忍的污点，或端口冲突。文档同一节还写了 hostPort 和污点。本练习只做“请求过大”这一种，避免去改节点污点。</p></div>
+<div class="card"><h4>怎么验证过</h4><p class="blank">留空。贴上你的 Allocatable 数字和 FailedScheduling 那一行。</p></div>
+</div>
+<p><b>验收：</b>能指出请求值来自哪一次 <code>get nodes</code>，以及为什么这个 Pod 不会压垮宿主机。</p>
+<p>清理：<code>kubectl -n lab-troubleshoot delete pod too-big --ignore-not-found</code></p>
+<p>阅读：<a href="https://kubernetes.io/zh-cn/docs/concepts/configuration/manage-resources-containers/" target="_blank" rel="noopener">为 Pod 和容器管理资源</a> 的“请求和限制”“带资源请求的 Pod 如何调度”，以及上面的 FailedScheduling 小节。<a href="https://kubernetes.io/zh-cn/docs/tasks/debug/debug-application/debug-pods/" target="_blank" rel="noopener">调试 Pod</a> 的“Pod 停滞在 Pending”。</p>
+
+<h2 id="s4">第 4 节 · Service 访问不通</h2>
+<p>分层，不要第一步就重启 Pod。顺序：Service 在不在，选择器和 Pod 标签是否一致，端口是否指向容器端口，EndpointSlice 里有没有地址，Pod 是否就绪。</p>
+<pre class="cmp">kubectl -n lab-troubleshoot apply -f - &lt;&lt;'EOF'
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: svc-demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: svc-demo
+  template:
+    metadata:
+      labels:
+        app: svc-demo
+    spec:
+      containers:
+      - name: web
+        image: KNOWN_IMAGE
+        ports:
+        - name: http
+          containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-demo
+spec:
+  selector:
+    app: svc-demo-typo
+  ports:
+  - name: http
+    port: 80
+    targetPort: 80
+EOF
+kubectl -n lab-troubleshoot get pods -l app=svc-demo --show-labels
+kubectl -n lab-troubleshoot get svc svc-demo -o wide
+kubectl -n lab-troubleshoot get endpointslice -l kubernetes.io/service-name=svc-demo
+kubectl -n lab-troubleshoot describe svc svc-demo
+kubectl -n lab-troubleshoot describe pod -l app=svc-demo</pre>
+<p>调试 Service 页的“Service 有 EndpointSlices 吗？”以及调试 Pod 页里的“服务缺少 Endpoints”都要求：用 Service 的选择器去列 Pod，并核对容器端口和 targetPort。选择器写成 <code>svc-demo-typo</code> 时，Pod 可以是 Running，EndpointSlice 仍然没有你的 Pod 地址。这不是应用日志能解释的。</p>
+<p>改回正确选择器（只改你创建的 Service）：</p>
+<pre class="cmp">kubectl -n lab-troubleshoot patch svc svc-demo --type=merge -p '{"spec":{"selector":{"app":"svc-demo"}}}'
+kubectl -n lab-troubleshoot get endpointslice -l kubernetes.io/service-name=svc-demo</pre>
+<p>就绪实验：在 Deployment 上加一个会失败的就绪探针，观察地址从 EndpointSlice 消失，但 Pod 仍在。探针路径用一个不存在的 URL。把 <code>KNOWN_IMAGE</code> 换掉。若该镜像不监听 80，探针失败会和“端口假设错误”混在一起，先在 describe 里确认容器端口，再加探针。</p>
+<pre class="cmp">kubectl -n lab-troubleshoot patch deployment svc-demo --type=json -p '[
+  {"op":"add","path":"/spec/template/spec/containers/0/readinessProbe","value":{"httpGet":{"path":"/not-a-real-lab-path","port":80},"periodSeconds":5}}
+]'
+kubectl -n lab-troubleshoot rollout status deployment/svc-demo --timeout=60s
+kubectl -n lab-troubleshoot get pods -l app=svc-demo
+kubectl -n lab-troubleshoot describe pod -l app=svc-demo
+kubectl -n lab-troubleshoot get endpointslice -l kubernetes.io/service-name=svc-demo</pre>
+<p>就绪失败会让 Pod 不进入 Service 的可用地址。存活探针失败才会重启容器。这一节只动就绪，避免把“未就绪”和“被杀掉”混成一件事。Pod 生命周期页的“就绪态探针”和“存活态探针”是这两句的阅读位置。</p>
+<p>从集群外 curl 不是这一节的验收。很多镜像里没有 curl。验收看的是 EndpointSlice 的地址列表和 describe 里的 Ready。若你已有带 shell 的调试镜像并且拉得下来，可以再做 DNS；做不到就只做下面的只读检查，不要为了 nslookup 去改 kube-system。</p>
+<pre class="cmp">kubectl -n kube-system get svc kube-dns</pre>
+<p>阅读：<a href="https://kubernetes.io/zh-cn/docs/tasks/debug/debug-application/debug-service/" target="_blank" rel="noopener">调试 Service</a> 的“Service 是否存在？”“Service 是否可通过 DNS 名字访问？”“Service 有 EndpointSlices 吗？”“Pod 工作正常吗？”。概念补充：<a href="https://kubernetes.io/zh-cn/docs/concepts/services-networking/endpoint-slices/" target="_blank" rel="noopener">EndpointSlice</a> 开头对“一组网络端点”的定义。</p>
+<p><b>验收：</b>笔记里有三次 EndpointSlice 观察：选择器写错、选择器改对、就绪探针失败。每次都写地址有没有、Pod Ready 是什么。没有这三行不算做完。</p>
+<p>清理本节：<code>kubectl -n lab-troubleshoot delete deployment svc-demo svc svc-demo --ignore-not-found</code></p>
+<details class="ans"><summary>为什么不先删 Pod</summary><p>选择器错误时 Pod 是好的，删掉只会触发重建，EndpointSlice 仍然对不上。证据在 Service 和 EndpointSlice，不在应用日志。</p></details>
+
+<h2 id="s5">第 5 节 · 生命周期和 Deployment</h2>
+<p>把前四节对上术语，而不是再造四个新故障。</p>
+<ul>
+<li>Pod 阶段、容器的 Waiting / Running / Terminated：<a href="https://kubernetes.io/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/" target="_blank" rel="noopener">Pod 的生命周期</a> 的“Pod 阶段”“容器状态”。镜像拉取失败多半停在 Waiting。崩溃后 Last State 是 Terminated。</li>
+<li>Deployment 用模板和选择器维持副本。<a href="https://kubernetes.io/zh-cn/docs/concepts/workloads/controllers/deployment/" target="_blank" rel="noopener">Deployments</a> 的“选择算符”“更新 Deployment”“Deployment 状态”（进行中、完成、失败）。</li>
+<li>回滚读同一页的“回滚 Deployment”“检查 Deployment 上线历史”“回滚到之前的修订版本”。</li>
+</ul>
+<p>在仍然存在的 <code>ok</code> 上做一次可逆更新。若第 1 节已经删了它，用 <code>KNOWN_IMAGE</code> 再建一个同名 Deployment，不要动别的命名空间。</p>
+<pre class="cmp">kubectl -n lab-troubleshoot rollout status deployment/ok --timeout=30s
+kubectl -n lab-troubleshoot rollout history deployment/ok
+kubectl -n lab-troubleshoot set image deployment/ok *=nginx:this-tag-does-not-exist-lab
+kubectl -n lab-troubleshoot rollout status deployment/ok --timeout=20s
+kubectl -n lab-troubleshoot describe deploy ok
+kubectl -n lab-troubleshoot rollout undo deployment/ok
+kubectl -n lab-troubleshoot rollout status deployment/ok --timeout=60s</pre>
+<p><code>rollout status</code> 会停在新的 ReplicaSet 还没就绪的时候。这是状态，不是 kubectl 卡死。undo 只回退这个 Deployment 的模板。预期：错误 tag 的新 Pod 再次出现拉取失败，undo 之后回到你记下的上一个修订。修订号以 history 的输出为准，本页不写死一个数字。</p>
+<p><b>验收：</b>history 里能看出修订增加，undo 之后 Running 的 Pod 镜像回到 <code>KNOWN_IMAGE</code>。做不到就不要开始第 8 节。</p>
+<div class="four">
+<div class="card"><h4>是什么</h4><p>Deployment 保存 Pod 模板和修订。滚动更新时新旧 ReplicaSet 会同时存在一会儿。</p></div>
+<div class="card"><h4>为什么这样设计</h4><p>声明的是目标，控制器去靠近它。所以你改镜像之后，旧 Pod 不会永远留着，但失败的新 Pod 也不会被悄悄算成成功。</p></div>
+<div class="card"><h4>什么时候会出问题</h4><p>新镜像拉不下来时，Deployment 可以停在“进行中”或最终失败，旧副本是否还在取决于最大不可用等策略。先看 status 和两个 ReplicaSet，而不是删掉所有 Pod。</p></div>
+<div class="card"><h4>怎么验证过</h4><p class="blank">留空。贴 rollout history 和 undo 之后的镜像名。</p></div>
+</div>
+
+<h2 id="s6">第 6 节 · DNS、探针、配置</h2>
+<p>Service 的集群 DNS 名字一般是 <code>服务名.命名空间.svc.cluster.local</code>。阅读位置用你已经打开过的调试 Service 页“Service 是否可通过 DNS 名字访问？”，再读 <a href="https://kubernetes.io/zh-cn/docs/concepts/services-networking/dns-pod-service/" target="_blank" rel="noopener">DNS 与 Service</a> 里说明这条名字如何组成的段落。这一节不要求你在集群里改 CoreDNS。</p>
+<p>探针再读生命周期页“容器探针”下的启动、存活、就绪三小节。就绪影响进不进 EndpointSlice；存活失败会重启容器；启动探针用来给慢启动留时间，避免存活探针过早杀掉它。第 4 节已经见过就绪失败。这里只要求你能把三句话写全，不必再造一个会重启的探针。</p>
+<p>配置：<a href="https://kubernetes.io/zh-cn/docs/concepts/configuration/configmap/" target="_blank" rel="noopener">ConfigMap</a> 开头，读它如何用环境变量或卷进入 Pod。练习只放一行无密文的配置。</p>
+<pre class="cmp">kubectl -n lab-troubleshoot create configmap lab-note --from-literal=owner=lab
+kubectl -n lab-troubleshoot get configmap lab-note -o yaml</pre>
+<p>不要把密码、令牌或内网地址放进 ConfigMap。真密文用 Secret，而且不要 <code>-o yaml</code> 后贴到公开处。</p>
+<p>和 Java 进程的关系：应用读到的配置来自环境变量、文件或它自己的配置搜索路径。排障时把“Pod 启动时间、ConfigMap 资源版本、日志里的配置路径”按时间排开。配置改了但进程没重启，看到的仍是旧值。本练习不要求你部署 Spring Boot。</p>
+<p><b>验收：</b>用自己的话写清三行：DNS 名字由什么拼成；就绪和存活各影响什么；ConfigMap 改了之后进程为什么可能还在用旧值。</p>
+<p>清理：<code>kubectl -n lab-troubleshoot delete configmap lab-note --ignore-not-found</code></p>
+
+<h2 id="s7">第 7 节 · request 与 limit</h2>
+<p>request 参与调度（第 3 节）。limit 是运行时的上限。CPU limit 用节流，内存超过 limit 时容器可能被杀掉。资源页“我的容器被终止了”给了一个文档示例：Last State Reason 为 <code>OOMKilled</code>，Exit Code 为 <code>137</code>。那是文档样本，里面的节点和 IP 不要抄。它说明的是“超过内存限制可以被杀掉”，不是“任何 137 都一定是内存限制”，节点压力等别的路径也会杀容器。看到 137 仍要读 Last State 和 Events。</p>
+<p>本路线不做把宿主机打满的实验，也不要求你故意制造 OOM。若你希望看一次容器级限制：仅当第 3 节看到的可分配内存至少有 1Gi，并且你接受这个容器自己被杀时，才给一个很小的内存 limit（例如 32Mi）并跑一个会分配内存的进程。不确定就跳过，验收改为复述文档示例和你的第 3 节 Pending 证据。不要把 limit 设成接近整台机器。</p>
+<p>阅读：同一资源页的“请求和限制”和“我的容器被终止了”。</p>
+<div class="four">
+<div class="card"><h4>是什么</h4><p>request 是调度账单，limit 是运行上限。</p></div>
+<div class="card"><h4>为什么这样设计</h4><p>分开之后，可以超额承诺 limit，同时仍用 request 保证最低位置。所以“机器看起来还有空闲”和“Pod 仍 Pending”可以同时成立。</p></div>
+<div class="card"><h4>什么时候会出问题</h4><p>只设了很小的内存 limit，进程会被 OOMKilled。只设了很大的 request，Pod 永远 Pending。不要把这两种都叫成“资源不够”而不看事件。</p></div>
+<div class="card"><h4>怎么验证过</h4><p class="blank">留空。至少写下你的 Allocatable，以及你有没有做那个可选的小 limit。没做就写“未做”。</p></div>
+</div>
+
+<h2 id="s8">第 8 节 · Java 客户端，只读</h2>
+<p>官方客户端列表：<a href="https://kubernetes.io/zh-cn/docs/reference/using-api/client-libraries/" target="_blank" rel="noopener">客户端库</a>。Java 库仓库是 <a href="https://github.com/kubernetes-client/java" target="_blank" rel="noopener">kubernetes-client/java</a>。版本和 <code>execute()</code> 的写法以你打开 README 的那一天为准。本页不锁版本，也没有编译过。</p>
+<p>目标只是：用和 kubectl 相同的 kubeconfig，列出 <code>lab-troubleshoot</code> 里的 Pod。不要 list 全集群来“试试权限”，不要创建 ClusterRole。</p>
+<p>若调用返回 403，把状态码和消息记下来，这就是第 10 节的入口。不要为了这一节去绑定 cluster-admin。</p>
+<p><b>验收：</b>程序输出的名字集合和 <code>kubectl -n lab-troubleshoot get pods</code> 一致，或你明确记下了 403。二者之一即可。</p>
+
+<h2 id="s9">第 9 节 · Job</h2>
+<p>阅读 <a href="https://kubernetes.io/zh-cn/docs/concepts/workloads/controllers/job/" target="_blank" rel="noopener">Job</a> 里说明“运行到完成”的开头，以及失败后如何重试的段落。用 <code>KNOWN_IMAGE</code>。若镜像忽略参数并一直运行，这个对象就不是完成型任务，记下现象并删掉，不要为了凑 Complete 去改集群默认。</p>
+<pre class="cmp">kubectl -n lab-troubleshoot create job hello --image=KNOWN_IMAGE -- nginx -v
+kubectl -n lab-troubleshoot get job,pods -l job-name=hello
+kubectl -n lab-troubleshoot logs job/hello --tail=20 --timestamps
+kubectl -n lab-troubleshoot describe job hello</pre>
+<p><code>nginx -v</code> 对官方 nginx 镜像通常会打印版本并退出。若你的 <code>KNOWN_IMAGE</code> 不是 nginx，换一个它支持的“打印后退出”的参数；没有这样的参数就跳过 Job 的运行，只读文档。不要拉取一堆新镜像试错。</p>
+<p><b>验收：</b>能说出 Job 和 Deployment 的差别：一个要到达完成，一个要维持副本。日志用 <code>logs job/hello</code> 或具体 Pod 都可以，前提是容器真的启动了。</p>
+<p>清理：<code>kubectl -n lab-troubleshoot delete job hello --ignore-not-found</code></p>
+
+<h2 id="s10">第 10 节 · RBAC 与配额</h2>
+<p>阅读 <a href="https://kubernetes.io/zh-cn/docs/reference/access-authn-authz/rbac/" target="_blank" rel="noopener">RBAC</a> 里 Role 与 RoleBinding 的部分：Role 只在一个命名空间生效。不要创建 ClusterRoleBinding。</p>
+<pre class="cmp">kubectl -n lab-troubleshoot create serviceaccount reader
+kubectl -n lab-troubleshoot create role pod-reader --verb=get,list --resource=pods
+kubectl -n lab-troubleshoot create rolebinding reader --role=pod-reader --serviceaccount=lab-troubleshoot:reader
+kubectl auth can-i list pods -n lab-troubleshoot --as=system:serviceaccount:lab-troubleshoot:reader
+kubectl auth can-i delete pods -n lab-troubleshoot --as=system:serviceaccount:lab-troubleshoot:reader</pre>
+<p>预期来自 RBAC 的规则本身，而不是一次已运行的记录：list 应为 yes，delete 应为 no。若 <code>--as</code> 被拒绝，说明当前身份不能模拟，把原文记下并停止，不要去改集群的模拟权限。</p>
+<p>配额读 <a href="https://kubernetes.io/zh-cn/docs/concepts/policy/resource-quotas/" target="_blank" rel="noopener">资源配额</a> 开头：配额约束的是命名空间里的请求总和。数字必须小于你在第 3 节看到的 Allocatable。若可分配内存小于 512Mi，跳过创建配额，在笔记里写原因。</p>
+<p>做法：把内存请求配额设成 Allocatable 的大约两成（你自己算，写成 Mi）。然后提交一个 requests 略大于这份配额的 Pod。它应在准入阶段被拒绝，而不是 Pending 到节点上。拒绝原文里会提到配额。这和 FailedScheduling 不是同一种失败。</p>
+<p><b>验收：</b>笔记里分得清 403、配额拒绝、FailedScheduling 三句话各对应哪条命令。</p>
+<p>清理：删除你创建的 role、rolebinding、serviceaccount、resourcequota 和那只超额 Pod。不要删除 kube-system 里的任何 Role。</p>
+
+<h2 id="s11">第 11 节 · 状态同步</h2>
+<p>控制器反复比较 spec 和 status。第 5 节里，你把镜像改成不存在的 tag 之后，Deployment 不会假装已经成功；undo 是在改期望状态，而不是去容器里手工改文件。阅读仍用 <a href="k8s-01.html">模块 1</a> 里已经写过的控制器说明，以及 Deployment 页的“Deployment 状态”。</p>
+<p>Java 侧若要监听变化，用客户端的 watch 或 informer，而不是每秒 list 全命名空间。模块 1 有这段背景。本路线只要求你能说出：list 一次加上从某个 resourceVersion 开始的 watch，版本过旧时要重新 list。不要在这一节写一个新的监听程序，除非第 8 节的只读列出已经成功。</p>
+<p><b>验收：</b>用 pull-bad 或 rollout 的那次失败，讲清“期望镜像”和“容器并没有跑起来”如何同时出现在 describe 里。</p>
+
+<h2 id="later">进阶，不在这 13 小时里</h2>
+<ul>
+<li>调度器打分、污点和亲和：<a href="k8s-02.html">模块 2</a>。面试若问的是 kubectl 和日志，不要从这里开始。</li>
+<li>多租户配额的更多面：<a href="k8s-03.html">模块 3</a>。第 10 节只做了命名空间内的一小步。</li>
+<li>GPU、设备插件、批调度、Operator：<a href="k8s-04.html">模块 4</a> 和实验环境页的深挖。DCU、Slurm、用 Go 写调度器都不在本路线里，本页也不把它们说成你环境里已经有的组件。</li>
+<li>自动扩展的公式和一次历史压测记录在 <a href="k8s-lab.html">实验环境页</a>。做过一次实验不等于这些机制已经掌握。</li>
+</ul>
+<h3 class="sec" id="checks">做完一条再勾</h3>
+<p>勾选只存在于你的浏览器。本页不提供进度同步。</p>
+<ul>
+<li>第 1 节证据记录里同时有健康 Pod 和 pull-bad 的 Events。</li>
+<li>第 2 节记下了 previous 有或没有的原文。</li>
+<li>第 3 节的请求值来自当时的 Allocatable，Pod 保持 Pending。</li>
+<li>第 4 节有三次 EndpointSlice 观察。</li>
+<li>没有删除过其他命名空间，没有使用 sudo。</li>
+</ul>
+<p class="meta">静态检查可以确认这些命令和链接在页面上。它们没有在本次发布用的环境里对真实集群执行。</p>
+</main></div><script src="assets/search-index.js"></script><script src="assets/nav.js"></script><script src="assets/app.js"></script>
+<!-- built 2026-11-21 18:00 北京时间 --></body></html>
